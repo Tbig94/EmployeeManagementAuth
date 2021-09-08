@@ -1,0 +1,100 @@
+﻿@model EmployeeManagementAuth.Models.Employee
+
+@inject Microsoft.AspNetCore.Identity.SignInManager<EmployeeManagementAuth.Models.ApplicationUser> signInManager
+
+@if (this.User.IsInRole(EmployeeManagementAuth.Utilities.Helper.Admin))
+{
+    <h2>Remove Employee</h2>
+    <hr>
+    <form method="post" asp-action="DeletePost">
+        <input asp-for="Id" hidden />
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="FirstName"></label>
+                    </div>
+                    <div class="col-2">
+                        <label asp-for="LastName"></label>
+                    </div>
+                    <div class="col-2">
+                        <label asp-for="Age"></label>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="Salary"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <input asp-for="FirstName" disabled class="form-control"/>
+                    </div>
+                    <div class="col-2">
+                        <input asp-for="LastName" disabled class="form-control"/>
+                    </div>
+                    <div class="col-2">
+                        <input asp-for="Age" disabled class="form-control"/>
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="Salary" disabled class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group-row">
+                    <div class="col-6 offset-4 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-danger" value="Delete" />
+                            <a asp-action="Index" class="btn btn-info ml-5">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+else
+{
+    <h2>You don't have the permission to remove an Employee.</h2>
+    <hr>
+    <div>
+        <a asp-action="Index" class="btn btn-info ml-5">Back</a>
+    </div>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
