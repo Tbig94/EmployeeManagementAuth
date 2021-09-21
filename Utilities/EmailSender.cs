@@ -1,37 +1,44 @@
-﻿
-using Mailjet.Client;
+﻿using Mailjet.Client;
 using Mailjet.Client.Resources;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Threading.Tasks;
 
-namespace EmployeeManagementAuth.Utilities;
-public class EmailSender : IEmailSender
+namespace EmployeeManagementAuth.Utilities
 {
-    private readonly string MAILJET_SENDER_EMAIL_ADDRESS = Environment.GetEnvironmentVariable("MAILJET_SENDER_EMAIL_ADDRESS");
-    private readonly string MAILJET_API_KEY = Environment.GetEnvironmentVariable("MAILJET_API_KEY");
-    private readonly string MAILJET_SECRET_KEY = Environment.GetEnvironmentVariable("MAILJET_SECRET_KEY");
-
-    public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+    public class EmailSender : IEmailSender
     {
-        MailjetClient client = new MailjetClient(MAILJET_API_KEY, MAILJET_SECRET_KEY)
-        {
+        #region Fields
+        private readonly string MAILJET_SENDER_EMAIL_ADDRESS = Environment.GetEnvironmentVariable("MAILJET_SENDER_EMAIL_ADDRESS");
+        private readonly string MAILJET_API_KEY = Environment.GetEnvironmentVariable("MAILJET_API_KEY");
+        private readonly string MAILJET_SECRET_KEY = Environment.GetEnvironmentVariable("MAILJET_SECRET_KEY");
+        #endregion
 
-        };
-
-        MailjetRequest request = new MailjetRequest
+        #region SendEmailAsync
+        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
-            Resource = Send.Resource,
-        }
-           .Property(Send.FromEmail, MAILJET_SENDER_EMAIL_ADDRESS)
-           .Property(Send.FromName, "Employee Management")
-           .Property(Send.Subject, subject)
-           .Property(Send.HtmlPart, htmlMessage)
-           .Property(Send.Recipients, new JArray {
+            MailjetClient client = new MailjetClient(MAILJET_API_KEY, MAILJET_SECRET_KEY)
+            {
+
+            };
+
+            MailjetRequest request = new MailjetRequest
+            {
+                Resource = Send.Resource,
+            }
+               .Property(Send.FromEmail, MAILJET_SENDER_EMAIL_ADDRESS)
+               .Property(Send.FromName, "Employee Management")
+               .Property(Send.Subject, subject)
+               .Property(Send.HtmlPart, htmlMessage)
+               .Property(Send.Recipients, new JArray {
                 new JObject {
                  {"Email", email}
                  }
-               });
-        MailjetResponse response = await client.PostAsync(request);
-
+                   });
+            MailjetResponse response = await client.PostAsync(request);
+        }
+        #endregion
     }
 }
+

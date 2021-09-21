@@ -1,6 +1,9 @@
 ﻿
-namespace EmployeeManagementAuth.DbInitializer;
-public interface IDbInitializer
+namespace EmployeeManagementAuth.DbInitializer
 {
-    void Initialize();
+    public interface IDbInitializer
+    {
+        void Initialize();
+    }
 }
+

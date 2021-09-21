@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace EmployeeManagementAuth
 {
@@ -40,6 +41,9 @@ namespace EmployeeManagementAuth
             services.AddScoped<IEmailSender, EmailSender>();
 
             services.AddScoped<IDbInitializer, DbInitializer.DbInitializer>();
+
+            //  current user
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

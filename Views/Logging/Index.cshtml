@@ -1,0 +1,86 @@
+﻿@model IEnumerable<EmployeeManagementAuth.Models.LoggingModel>
+
+@using EmployeeManagementAuth.Utilities
+
+@inject Microsoft.AspNetCore.Identity.SignInManager<EmployeeManagementAuth.Models.ApplicationUser> signInManager
+
+@if (this.User.IsInRole(EmployeeManagementAuth.Utilities.Helper.Admin) || this.User.IsInRole(EmployeeManagementAuth.Utilities.Helper.User))
+{
+    <h2>Logging Info</h2>
+    <hr>
+
+    @if (Model.Count() > 0)
+    {
+        @foreach (var log in Model)
+        {
+            @if (log.ObjType == Helper.Department)
+            {
+                @if (log.LogType == Helper.Create)
+                {
+                    <div>
+                        <span>Modified by <span style="font-style: italic">@log.Title</span> (@log.Date)</span>
+                        <h4><span class="text-success">Added <span style="font-style: italic;">@log.Body</span> to Departments.</span></h4>
+                        <br />
+                    </div>
+                }
+                @if (log.LogType == Helper.Update)
+                {
+                    <div>
+                        <span>Modified by <span style="font-style: italic">@log.Title</span> (@log.Date)</span>
+                        <h4><span class="text-warning">Updated <span style="font-style: italic;">@log.Body</span> in Departments.</span></h4>
+                        <br />
+                    </div>
+                }
+                @if (log.LogType == Helper.Delete)
+                {
+                    <div>
+                        <span>Modified by <span style="font-style: italic">@log.Title</span> (@log.Date)</span>
+                        <h4><span class="text-danger">Deleted <span style="font-style: italic;">@log.Body</span> from Departments.</span></h4>
+                        <br />
+                    </div>
+                }
+            }
+            @if (log.ObjType == Helper.Employee)
+            {
+                @if (log.LogType == Helper.Create)
+                {
+                    <div>
+                        <span>Modified by <span style="font-style: italic">@log.Title</span> (@log.Date)</span>
+                        <h4><span class="text-success">Added <span style="font-style: italic;">@log.Body</span> to Employees.</span></h4>
+                        <br />
+                    </div>
+                }
+                @if (log.LogType == Helper.Update)
+                {
+                    <div>
+                        <span>Modified by <span style="font-style: italic">@log.Title</span> (@log.Date)</span>
+                        <h4><span class="text-warning">Updated <span style="font-style: italic;">@log.Body</span> in Employees.</span></h4>
+                        <br />
+                    </div>
+                }
+                @if (log.LogType == Helper.Delete)
+                {
+                    <div>
+                        <span>Modified by <span style="font-style: italic">@log.Title</span> (@log.Date)</span>
+                        <h4><span class="text-danger">Deleted <span style="font-style: italic;">@log.Body</span> from Employees.</span></h4>
+                        <br />
+                    </div>
+                }
+            }
+
+        }
+    }
+    else
+    {
+        <hr>
+        <p>No Logging Info added yet.</p>
+    }
+}
+else
+{
+    <h2>You don't have the permission to view Loggin Info.</h2>
+    <hr>
+    <div>
+        <a asp-action="Index" asp-controller="Home" class="btn btn-info ml-5">Back</a>
+    </div>
+}

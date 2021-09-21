@@ -13,6 +13,7 @@ namespace EmployeeManagementAuth.Controllers
 {
     public class AccountController : Controller
     {
+        #region Fields
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -20,7 +21,9 @@ namespace EmployeeManagementAuth.Controllers
         private readonly IEmailSender _emailSender;
 
         private readonly string MAILJET_CLIENT_EMAIL_ADDRESS = Environment.GetEnvironmentVariable("MAILJET_CLIENT_EMAIL_ADDRESS");
+        #endregion
 
+        #region Ctor
         public AccountController(
                                     ApplicationDbContext db,
                                     UserManager<ApplicationUser> userManager,
@@ -34,7 +37,9 @@ namespace EmployeeManagementAuth.Controllers
             _roleManager = roleManager;
             _emailSender = emailSender;
         }
+        #endregion
 
+        #region Login
         //  GET-Login
         public IActionResult Login()
         {
@@ -57,13 +62,15 @@ namespace EmployeeManagementAuth.Controllers
             }
             return View(model);
         }
+        #endregion
 
+        #region Register
         //  GET-Register
         public IActionResult Register()
         {
             return View();
         }
-
+       
         //  POST-Register
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -95,7 +102,9 @@ namespace EmployeeManagementAuth.Controllers
             }
             return View(model);
         }
+        #endregion
 
+        #region LogOff
         //  POST-LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -104,5 +113,6 @@ namespace EmployeeManagementAuth.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
         }
+        #endregion
     }
 }

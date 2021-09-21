@@ -11,6 +11,12 @@ namespace EmployeeManagementAuth.Utilities
         public static string Admin = "Admin";
         public static string User = "User";
 
+        public static string Create = "create";
+        public static string Update = "update";
+        public static string Delete = "delete";
+        public static string Employee = "employee";
+        public static string Department = "department";
+
         public static List<SelectListItem> GetRolesForDropDown()
         {
             return new List<SelectListItem>
